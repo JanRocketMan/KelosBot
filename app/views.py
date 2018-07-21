@@ -3,7 +3,7 @@ from flask import request, jsonify, send_from_directory, after_this_request, ren
 from app import app
 from splinter import Browser
 import time
-from mmodel import KeLoss
+from mmodel import KeLoss #our library. Located in "classifier" branch.
 import time
 
 
