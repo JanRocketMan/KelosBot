@@ -18,4 +18,5 @@ We have wrote some "libraries" for python. These scripts can be imported as libs
 
 #### Then tou could make dataset, possibly with our scripts, stored in this branch
 #### Now you can train your own model
-#### After all, PREDICT THEM ALL!!!
+#### And after all, 
+####               PREDICT THEM ALL!!!
