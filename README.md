@@ -10,7 +10,7 @@ We have wrote some "libraries" for python. These scripts can be imported as libs
 Yeah, it could be interesting. We have wrote them for interestiong project.
 With standart configuration neural network can give to you nearly 92% accuracy. We have got such accuracy ;)
 By default, netwotk has something about 1,506,000 trainable params.
-This net is very simple, but it really workd fine for uor project:)
+This net is very simple, but it really worked fine for uor project:)
 ### What do I need to use these scripts?
 #### * First, you have to install some python libs by "pip"
 * Keras
