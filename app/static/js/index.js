@@ -1,3 +1,4 @@
+var num = 0;
 (function (d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
@@ -57,7 +58,7 @@
         };
 
         setTimeout(function () {
-          // this.$chatHistoryList.append('<li> <div class="message-data"> <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span> <span class="message-data-time">Today</span> </div> <div class="message my-message"><div id="vk_post_'+g_i+'_'+p_i+'"></div> <script type="text/javascript"> (function(d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "https://vk.com/js/api/openapi.js?157"; fjs.parentNode.insertBefore(js, fjs); }(document, "script", "vk_openapi_js")); (function() { if (!window.VK || !VK.Widgets || !VK.Widgets.Post || !VK.Widgets.Post("vk_post_1_"'+p_i+',' + g_i+ ', '+p_i+',' +hash+')) setTimeout(arguments.callee, 50); }()); </script>0000</div> </li>');
+         // this.$chatHistoryList.append('');
           this.scrollToBottom();
         }.bind(this), 1500);
 
@@ -87,7 +88,7 @@
     },
     send_to_server: function (mes) {
       var res = '';
-      num = 0;
+
       $.ajax({
         type: "POST",
         url: "/api/addres",

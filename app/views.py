@@ -6,14 +6,7 @@ import time
 from mmodel import KeLoss
 import time
 
-
-
-
 predicter = KeLoss()
-
-
-
-
 
 @app.route('/')
 @app.route('/index')

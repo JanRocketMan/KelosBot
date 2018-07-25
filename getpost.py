@@ -7,7 +7,7 @@ with open('buffer', 'w') as f:
 with Browser('chrome') as browser:
         url = "https://vk.com/dev/Post"
         browser.visit(url)
-        login='89222204466'
+        login='89097237917'
         browser.find_by_id('email').fill(login)
         browser.find_by_id('pass').fill(getpass.getpass())
 
