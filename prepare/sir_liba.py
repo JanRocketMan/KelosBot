@@ -170,7 +170,7 @@ class EdaMaker:
         self.current = rdy.copy()
         del(rdy)
 
-    def cleantext(self, arg_regexp=r'', arg_stopwords=['russian'], lemm=True, normalize=True):
+    def cleantext(self, arg_regexp=r'', arg_stopwords=['russian'], lemm=True, normalize=True, remshort=True, delstops=True):
         print('Len of DataFrame was:',len(self.current.index))
         regexp = arg_regexp
         regexp += r'\\n|\n|"|-|:|–|\/|—|#|«|»|\?|\+|\-|°|\!|\(|\)|_\w*' ##\n symbols, kavichki`s, other trash symbols.
@@ -189,14 +189,15 @@ class EdaMaker:
             self.sender_list = list(self.current[self.group_series])
         except KeyError:
             self.sender_list = []
+        
+        if delstops:
+            print("Make stopwords...")
 
-        print("Make stopwords...")
-
-        self.post_list = list(self.current[self.text_series])
-        self.row_posts = ' '.join(self.post_list)
-        for i in arg_stopwords:
-            self.stopwords += stopwords.words(i)
-        self.stopwords += ['это','который','который','которая','которые','которых']
+            self.post_list = list(self.current[self.text_series])
+            self.row_posts = ' '.join(self.post_list)
+            for i in arg_stopwords:
+                self.stopwords += stopwords.words(i)
+            self.stopwords += ['это','который','который','которая','которые','которых']
 
         print('Delete some trash...')
 
@@ -205,18 +206,19 @@ class EdaMaker:
         self.current[self.processed_series] = [re.sub(r'[^a-zA-Zа-яА-Я0-9]', ' ', i, flags=re.MULTILINE).lower() for i in self.current[self.processed_series]]
         textis = [list(i.split()) for i in self.current[self.processed_series]]
         texts = []
-        print("Delete stopwords...")
-        for text in textis:
-            texts.append([i for i in text if i not in self.stopwords])
-        self.current[self.processed_series] = [' '.join(i) for i in texts]
-        self.current[self.length_series] = [len(i.split(' ')) for i in self.current[self.processed_series]]
-
-        print("Remove too short texts...")
-
-        self.current = self.current.apply(self.remshort, axis=1)
-        if self.dropnan:
-            self.current = self.current.dropna(subset=[self.processed_series])
-            self.current = self.current.drop_duplicates(subset=[self.processed_series])
+        if delstops:
+            print("Delete stopwords...")
+            for text in textis:
+                texts.append([i for i in text if i not in self.stopwords])
+            self.current[self.processed_series] = [' '.join(i) for i in texts]
+            self.current[self.length_series] = [len(i.split(' ')) for i in self.current[self.processed_series]]
+        
+        if remshort:
+            print("Remove too short texts...")
+            self.current = self.current.apply(self.remshort, axis=1)
+            if self.dropnan:
+                self.current = self.current.dropna(subset=[self.processed_series])
+                self.current = self.current.drop_duplicates(subset=[self.processed_series])
 
         if lemm:
             print("Make some lemmatzation...")
